@@ -26,11 +26,25 @@ import shop
 
 def shopSmart(orderList, fruitShops):
     """
-        orderList: List of (fruit, numPound) tuples
-        fruitShops: List of FruitShops
+    orderList: List of (fruit, numPound) tuples
+    fruitShops: List of FruitShops
+    return a shop
     """
     "*** YOUR CODE HERE ***"
-    return None
+    cheapest_shop = None
+
+    cheapest_so_far = None
+    for shop in fruitShops:
+        total_cost = shop.getPriceOfOrder(orderList)
+
+        if cheapest_so_far is None:
+            cheapest_so_far = total_cost
+            cheapest_shop = shop
+        elif total_cost < cheapest_so_far:
+            cheapest_so_far = total_cost
+            cheapest_shop = shop
+
+    return cheapest_shop
 
 
 if __name__ == '__main__':
@@ -41,8 +55,6 @@ if __name__ == '__main__':
     dir2 = {'apples': 1.0, 'oranges': 5.0}
     shop2 = shop.FruitShop('shop2', dir2)
     shops = [shop1, shop2]
-    print("For orders ", orders, ", the best shop is",
-          shopSmart(orders, shops).getName())
+    print("For orders ", orders, ", the best shop is", shopSmart(orders, shops).getName())
     orders = [('apples', 3.0)]
-    print("For orders: ", orders, ", the best shop is",
-          shopSmart(orders, shops).getName())
+    print("For orders: ", orders, ", the best shop is", shopSmart(orders, shops).getName())
